@@ -1,9 +1,9 @@
 'use server'
 
-import { auth } from "@/auth";
-import { db } from "@/lib/db";
-import { ProfileSchema } from "@/lib/schemas";
-import { z } from "zod";
+import { auth } from '@/auth'
+import { db } from '@/lib/db'
+import { ProfileSchema } from '@/lib/schemas'
+import { z } from 'zod'
 
 export async function updateProfile(values: z.infer<typeof ProfileSchema>) {
     const validatedFields = ProfileSchema.safeParse(values)
