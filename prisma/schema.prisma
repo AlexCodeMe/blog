@@ -14,8 +14,8 @@ datasource db {
 }
 
 model User {
-  id        String  @id @default(cuid())
-  username  String  @unique
+  id        String     @id @default(cuid())
+  username  String     @unique
   password  String
   name      String?
   email     String?
@@ -25,4 +25,17 @@ model User {
   facebook  String?
   linkedin  String?
   instagram String?
+
+  BlogPost  BlogPost[]
+}
+
+model BlogPost {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  author    User     @relation(fields: [authorId], references: [id])
 }

@@ -22,11 +22,19 @@ export const RegisterSchema = z.object({
 })
 
 export const ProfileSchema = z.object({
-    bio: z.string(),
-    image: z.string(),
-    email: z.string(), // TODO: proper email check
-    twitter: z.string(), // TODO: proper twitter url check
-    facebook: z.string(), // TODO: proper facebook url check
-    linkedin: z.string(), // TODO: proper linkedin url check
-    instagram: z.string() // TODO: proper instagram url
+    bio: z.string().optional(),
+    image: z.string().optional(),
+    email: z.string().email().optional(),
+    twitter: z.string().optional(),
+    facebook: z.string().optional(),
+    linkedin: z.string().optional(),
+    instagram: z.string().optional(),
+})
+
+export const BlogPostSchema = z.object({
+    title: z.string().min(1, 'Title is required'),
+    content: z.string().min(1, 'Content is required'),
+    authorId: z.string().uuid(),
+    createdAt: z.date().default(() => new Date()),
+    updatedAt: z.date().default(() => new Date()),
 })

@@ -1,33 +1,64 @@
 import NextAuth, { DefaultSession } from "next-auth"
 import authConfig from "./auth.config"
-
 import { PrismaClient } from "@prisma/client"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { db, getUserById } from "./lib/db"
+import { db } from "./lib/db"
 
 declare module 'next-auth' {
   interface Session {
     user: {
-      email?: string
-      image?: string
-      bio?: string
-      twitter?: string
-      facebook?: string
-      linkedin?: string
-      instagram?: string
+      id?: string
+      email?: string | null
+      image?: string | null
+      bio?: string | null
+      twitter?: string | null
+      facebook?: string | null
+      linkedin?: string | null
+      instagram?: string | null
     } & DefaultSession['user']
+  }
+
+  interface User {
+    bio?: string | null
+    twitter?: string | null
+    facebook?: string | null
+    linkedin?: string | null
+    instagram?: string | null
+  }
+}
+
+declare module "@auth/prisma-adapter" {
+  interface AdapterUser {
+    bio?: string | null
+    twitter?: string | null
+    facebook?: string | null
+    linkedin?: string | null
+    instagram?: string | null
   }
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
-    async session({ token, session }) {
+    async session({ token, session, user }) {
       console.log({ sessionToken: token })
       if (token.sub && session.user) {
         session.user.id = token.sub
       }
 
-      return session
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.sub,
+          email: user?.email || null,
+          image: user?.image || null,
+          bio: user?.bio || null,
+          twitter: user?.twitter || null,
+          facebook: user?.facebook || null,
+          linkedin: user?.linkedin || null,
+          instagram: user?.instagram || null,
+        },
+      }
     },
     async jwt({ token }) {
       console.log({ token })

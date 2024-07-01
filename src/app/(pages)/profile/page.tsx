@@ -1,14 +1,10 @@
-import { auth } from '@/auth'
-import ProfileForm from '@/components/forms/profile-form'
-import { redirect } from 'next/navigation'
+import { db } from '@/lib/db'
 import React from 'react'
 
-export default async function ProfilePage() {
-    const session = await auth()
-
-    return session?.user?.name ? (
-        <>
-            <ProfileForm name={session?.user?.name} />
-        </>
-    ) : null
+export default function ProfilePage() {
+  return (
+    <div>
+        
+    </div>
+  )
 }
