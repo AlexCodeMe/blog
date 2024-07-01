@@ -19,11 +19,8 @@ export default function Wrapper({
     <div className={`${className} py-8 px-4 w-[400px] shadow-md border-2 border-yellow-300 rounded-xl bg-blue-400`}>
       <div className='pb-8 w-full flex flex-col gap-y-4 items-center justify-center'>
         <h1 className='text-4xl font-semibold'>
-          🌷 Hello! 🧚🏻‍♀️
+          🌷 {headerLabel} 🧚🏻‍♀️
         </h1>
-        <p className='text-xl text-muted-foreground'>
-          {headerLabel}
-        </p>
       </div>
       <div>
         {children}

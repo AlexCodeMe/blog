@@ -3,6 +3,12 @@ import ProfileForm from '@/components/forms/profile-form'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
-export default function ProfilePage() {
-    return <ProfileForm />
+export default async function ProfilePage() {
+    const session = await auth()
+
+    return session?.user?.name ? (
+        <>
+            <ProfileForm name={session?.user?.name} />
+        </>
+    ) : null
 }

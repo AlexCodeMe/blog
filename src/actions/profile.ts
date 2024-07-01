@@ -7,6 +7,7 @@ import { z } from "zod";
 
 export async function updateProfile(values: z.infer<typeof ProfileSchema>) {
     const validatedFields = ProfileSchema.safeParse(values)
+
     if (!validatedFields.success) return { error: 'invalid fields' }
     console.log('validatedFields.data', validatedFields.data)
     const {
@@ -20,7 +21,7 @@ export async function updateProfile(values: z.infer<typeof ProfileSchema>) {
     } = validatedFields.data
 
     const session = await auth()
-    if (!session?.user) return { error: 'Unauthorized' }
+    if (!session?.user?.email) return { error: 'Unauthorized' }
     console.log('updateProfile session', session)
 
     try {

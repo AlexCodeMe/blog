@@ -5,8 +5,9 @@ import Wrapper from './wrapper'
 import { z } from 'zod'
 import { ProfileSchema } from '@/lib/schemas'
 import { updateProfile } from '@/actions/profile'
+import LogoutButton from '../custom/logout-button'
 
-export default function ProfileForm() {
+export default function ProfileForm({ name }: { name: string }) {
   const [formData, setFormData] = useState<z.infer<typeof ProfileSchema>>({
     bio: '',
     image: '',
@@ -38,11 +39,13 @@ export default function ProfileForm() {
 
   return (
     <Wrapper className='!w-full'
-      headerLabel='Hello! Update your profile.'
+      headerLabel={`Welcome, ${name}`}
       backButtonLabel='create a blog post'
       backButtonHref='/create-post'
     >
-      <form className='flex flex-col justify-end items-center space-y-4 w-full' onSubmit={handleSubmit}>
+      <form className='flex flex-col justify-end items-center space-y-4 w-full'
+        onSubmit={handleSubmit}
+      >
         <div className='flex items-center w-full'>
           <label className='w-1/4'>Email</label>
           <input
@@ -113,11 +116,14 @@ export default function ProfileForm() {
             onChange={handleChange}
           />
         </div>
-        <button type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Update Profile
-        </button>
+        <div className='flex items-center justify-end gap-10'>
+          <button type="submit"
+            className="px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Update Profile
+          </button>
+          <LogoutButton>Logout</LogoutButton>
+        </div>
       </form>
     </Wrapper>
   )

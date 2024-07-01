@@ -1,11 +1,10 @@
 'use server'
 
-import { LoginSchema } from "@/lib/schemas";
-import { z } from "zod";
-import bcrypt from 'bcryptjs'
-import { signIn } from "@/auth";
-import { DEFAULT_LOGIN_REDIRECT } from "@/lib/routes";
-import { AuthError } from "next-auth";
+import { LoginSchema } from "@/lib/schemas"
+import { z } from "zod"
+import { signIn } from "@/auth"
+import { DEFAULT_LOGIN_REDIRECT } from "@/lib/routes"
+import { AuthError } from "next-auth"
 
 export async function login(values: z.infer<typeof LoginSchema>) {
     const validatedFields = LoginSchema.safeParse(values)
