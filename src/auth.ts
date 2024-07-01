@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { db, getUserById } from "./lib/db"
 
-declare module '@auth/core' {
+declare module 'next-auth' {
   interface Session {
     user: {
       email: string
