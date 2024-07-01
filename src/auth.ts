@@ -8,13 +8,13 @@ import { db, getUserById } from "./lib/db"
 declare module 'next-auth' {
   interface Session {
     user: {
-      email: string
-      image: string
-      bio: string
-      twitter: string
-      facebook: string
-      linkedin: string
-      instagram: string
+      email?: string
+      image?: string
+      bio?: string
+      twitter?: string
+      facebook?: string
+      linkedin?: string
+      instagram?: string
     } & DefaultSession['user']
   }
 }
@@ -29,14 +29,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       return session
     },
-    async jwt({ token, user }) {
+    async jwt({ token }) {
       console.log({ token })
       if (!token.sub) return token
-
-      const existingUser = await getUserById(token.sub)
-      if (!existingUser) return token
-
-      token.email = existingUser.email
 
       return token
     }
