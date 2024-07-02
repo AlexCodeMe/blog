@@ -33,8 +33,5 @@ export const ProfileSchema = z.object({
 
 export const BlogPostSchema = z.object({
     title: z.string().min(1, 'Title is required'),
-    content: z.string().min(1, 'Content is required'),
-    authorId: z.string().uuid(),
-    createdAt: z.date().default(() => new Date()),
-    updatedAt: z.date().default(() => new Date()),
+    content: z.string().min(1, 'Content is required')
 })
