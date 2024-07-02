@@ -32,7 +32,7 @@ export default function NewBlogForm() {
     }
   return (
     <Wrapper
-      headerLabel={`Welcome, ${name}`}
+      headerLabel={`New Blog Page`}
       backButtonLabel='create a blog post'
       backButtonHref='/create-post'
     >
